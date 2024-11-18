@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Maps with Hotspots</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqSHKh3b39OeyHv-7RFWBeEE55U0PMX_U" defer></script>
+  <script>
+    function initMap() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 20.5937, lng: 78.9629},
+        zoom: 5
+      });
+
+      var hotspots = [
+        {lat: 28.6139, lng: 77.2090, name: 'Delhi', info: 'Capital of India'},
+        {lat: 19.0760, lng: 72.8777, name: 'Mumbai', info: 'Financial capital of India'},
+        {lat: 12.9716, lng: 77.5946, name: 'Bengaluru', info: 'Silicon Valley of India'}
+      ];
+
+      hotspots.forEach(function(hotspot) {
+        var marker = new google.maps.Marker({
+          position: {lat: hotspot.lat, lng: hotspot.lng},
+          map: map,
+          title: hotspot.name
+        });
+
+        var infoWindow = new google.maps.InfoWindow({
+          content: `<h3>${hotspot.name}</h3><p>${hotspot.info}</p>`
+        });
+
+        marker.addListener('click', function() {
+          infoWindow.open(map, marker);
+        });
+      });
+    }
+  </script>
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+<body onload="initMap()">
+  <div id="map"></div>
+</body>
+</html>
